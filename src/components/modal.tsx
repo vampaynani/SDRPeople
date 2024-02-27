@@ -1,20 +1,21 @@
 "use client";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
+import React, { Suspense } from "react";
 
-function Modal({ createPerson }) {
+function ModalContent({ createPerson }: { createPerson: Function }) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const modal = searchParams.get("modal");
 
-  const onCreatePerson = (event) => {
+  const onCreatePerson = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const formData = new FormData(event.target);
+    const formData = new FormData(event.target as HTMLFormElement);
     createPerson(formData);
     router.push("/people");
   };
   return (
-    <>
+    <Suspense>
       {modal && (
         <div className="qualified-profile-modal">
           <form onSubmit={onCreatePerson}>
@@ -28,7 +29,15 @@ function Modal({ createPerson }) {
           </form>
         </div>
       )}
-    </>
+    </Suspense>
+  );
+}
+
+function Modal({ createPerson }: { createPerson: Function }) {
+  return (
+    <Suspense>
+      <ModalContent createPerson={createPerson} />
+    </Suspense>
   );
 }
 

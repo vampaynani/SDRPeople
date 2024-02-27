@@ -1,14 +1,10 @@
 import Modal from "@/components/modal";
 import { PrismaClient } from "@prisma/client";
-
-export const db = new PrismaClient();
-
 import type { Person } from "@prisma/client"; // Importing the Post type from the Prisma client library.
 import { revalidatePath } from "next/cache";
 import Link from "next/link";
-import { redirect } from "next/navigation";
-import { useState } from "react";
 
+const db = new PrismaClient();
 async function fetchPeople(): Promise<Person[]> {
   // Function to fetch all posts from the database.
   return await db.person.findMany();
