@@ -12,7 +12,6 @@ function ModalContent({ createPerson }: { createPerson: Function }) {
     event.preventDefault();
     const formData = new FormData(event.target as HTMLFormElement);
     createPerson(formData);
-    router.push("/people");
   };
   return (
     <Suspense>

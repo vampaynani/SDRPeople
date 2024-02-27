@@ -20,7 +20,7 @@ async function createPerson(personFields: FormData) {
       email: personFields.get("email")?.toString() ?? "",
     },
   });
-  revalidatePath("/people");
+  revalidatePath("/people", "page");
 }
 
 export default async function People() {
