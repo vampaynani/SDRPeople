@@ -3,6 +3,7 @@ import { PrismaClient } from "@prisma/client";
 import type { Person } from "@prisma/client"; // Importing the Post type from the Prisma client library.
 import { revalidatePath } from "next/cache";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 const db = new PrismaClient();
 async function fetchPeople(): Promise<Person[]> {
@@ -21,6 +22,7 @@ async function createPerson(personFields: FormData) {
     },
   });
   revalidatePath("/people", "page");
+  redirect("/people");
 }
 
 export default async function People() {
